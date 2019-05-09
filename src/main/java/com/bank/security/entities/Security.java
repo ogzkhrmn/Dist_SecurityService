@@ -9,7 +9,7 @@ import javax.persistence.Table;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "Security")
+@Table(name = "security")
 public class Security {
 
     @Id
