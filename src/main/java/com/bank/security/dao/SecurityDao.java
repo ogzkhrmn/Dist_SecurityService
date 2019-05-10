@@ -4,4 +4,5 @@ public interface SecurityDao {
 
     boolean isSecure(String tckn);
 
+    Long saveError(String tckn);
 }

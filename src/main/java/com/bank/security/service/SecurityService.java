@@ -16,7 +16,7 @@ import java.io.Serializable;
 public class SecurityService implements Serializable {
 
     @Bean
-    private static SecurityDao secuirtyDao;
+    private static SecurityDao securityDao;
 
     @POST
     @Path("/isUserSecure")
@@ -24,7 +24,12 @@ public class SecurityService implements Serializable {
     @Consumes(MediaType.APPLICATION_JSON)
     public SecureUser isUserSecure(RequestModel model) {
         SecureUser secureUser = new SecureUser();
-        secureUser.setSecure(secuirtyDao.isSecure(model.getTckn()));
+        try {
+            secureUser.setSecure(securityDao.isSecure(model.getTckn()));
+        } catch (Exception e) {
+            secureUser.setSecure(true);
+            securityDao.saveError(model.getTckn());
+        }
         return secureUser;
     }
 

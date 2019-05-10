@@ -1,6 +1,7 @@
 package com.bank.security.core.handler;
 
 import com.bank.security.core.HibernateConfiguration;
+import com.bank.security.core.annotation.RealTransaction;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -21,8 +22,16 @@ public class DynamicInvocationHandler implements InvocationHandler {
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         Session session = HibernateConfiguration.getSession().getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        Object o = method.invoke(handler, args);
-        transaction.commit();
-        return o;
+        try {
+            if (method.getAnnotationsByType(RealTransaction.class) != null) {
+                Object o = method.invoke(handler, args);
+                transaction.commit();
+                return o;
+            }
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new Exception(e);
+        }
+        return proxy;
     }
 }
