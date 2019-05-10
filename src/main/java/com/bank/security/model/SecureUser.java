@@ -7,13 +7,13 @@ import java.io.Serializable;
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class SecureUser implements Serializable {
 
-    private boolean isSecure;
+    private boolean success;
 
-    public boolean isSecure() {
-        return isSecure;
+    public boolean isSuccess() {
+        return success;
     }
 
-    public void setSecure(boolean secure) {
-        isSecure = secure;
+    public void setSuccess(boolean success) {
+        this.success = success;
     }
 }

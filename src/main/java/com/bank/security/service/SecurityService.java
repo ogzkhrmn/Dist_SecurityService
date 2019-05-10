@@ -25,9 +25,9 @@ public class SecurityService implements Serializable {
     public SecureUser isUserSecure(RequestModel model) {
         SecureUser secureUser = new SecureUser();
         try {
-            secureUser.setSecure(securityDao.isSecure(model.getTckn()));
+            secureUser.setSuccess(securityDao.isSecure(model.getTckn()));
         } catch (Exception e) {
-            secureUser.setSecure(true);
+            secureUser.setSuccess(true);
             securityDao.saveError(model.getTckn());
         }
         return secureUser;
