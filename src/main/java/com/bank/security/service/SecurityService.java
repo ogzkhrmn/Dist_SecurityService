@@ -3,6 +3,7 @@ package com.bank.security.service;
 import com.bank.security.core.annotation.Bean;
 import com.bank.security.dao.SecurityDao;
 import com.bank.security.model.RequestModel;
+import com.bank.security.model.ResponseModel;
 import com.bank.security.model.SecureUser;
 
 import javax.ws.rs.Consumes;
@@ -37,8 +38,10 @@ public class SecurityService implements Serializable {
     @Path("/control")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public boolean isAlive() {
-        return true;
+    public ResponseModel isAlive() {
+        ResponseModel responseModel = new ResponseModel();
+        responseModel.setSuccess(true);
+        return responseModel;
     }
 
 }
